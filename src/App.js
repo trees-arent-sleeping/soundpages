@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import IndexPage from "./components/Index";
 
 function App() {
+  const [soundboards, setSoundboards] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/user", { withCredentials: true })
+      .then((res) => {
+        console.log("User data!:", res.data);
+        setUser(res.data);
+      })
+      .catch((err) => console.error("Error:", err))
+      .finally(() => setIsLoading(false));
+    axios
+      .get("http://localhost:3000/soundboards")
+      .then((res) => {
+        console.log("Soundboards data:", res.data);
+        setSoundboards(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <IndexPage isLoading={isLoading} user={user} soundboards={soundboards} />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/style.css";
 
 const NavIndex = ({ isLoading, user }) => {
   if (isLoading) {
@@ -10,7 +9,7 @@ const NavIndex = ({ isLoading, user }) => {
         </div>
         <div className="nav-right">
           <div className="links">
-            <a href="/auth/google">Login with Google</a>
+            <a href="http://localhost:3000/auth/google">Login with Google</a>
             <a href="/soundboards/create">Create New Soundboard</a>
           </div>
         </div>
@@ -41,7 +40,7 @@ const NavIndex = ({ isLoading, user }) => {
         </div>
         <div className="nav-right">
           <div className="links">
-            <a href="/auth/google">Login with Google</a>
+            <a href="http://localhost:3000/auth/google">Login with Google</a>
             <a href="/soundboards/create">Create New Soundboard</a>
           </div>
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Index from "./components/Index";
 import ShowPage from "./components/Show";
+import Create from "./components/Create";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Index isLoading={isLoading} user={user} />} />
         <Route path="/soundboards/:id" element={<ShowPage user={user} />} />
+        <Route path="/soundboards/create" element={<Create />} />
       </Routes>
     </Router>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import Create from "./Create";
 
 const NavIndex = ({ isLoading, user }) => {
   if (isLoading) {
@@ -26,7 +27,7 @@ const NavIndex = ({ isLoading, user }) => {
         <div className="nav-right">
           <div className="links-logged-in">
             <a href="/">Welcome, {user.username}!</a>
-            <a href="/logout">Logout</a>
+            <a href="http://localhost:3000/logout">Logout</a>
             <a href="/soundboards/create">Create New Soundboard</a>
           </div>
         </div>

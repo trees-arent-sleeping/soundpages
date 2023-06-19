@@ -33,9 +33,7 @@ const ShowPage = ({ user }) => {
         playSound(keys[key]);
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
@@ -46,7 +44,6 @@ const ShowPage = ({ user }) => {
     linkElement.rel = "stylesheet";
     linkElement.href = "/styles/show.css";
     document.head.appendChild(linkElement);
-
     return () => {
       document.head.removeChild(linkElement);
     };
@@ -55,7 +52,6 @@ const ShowPage = ({ user }) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   if (!soundboard) {
     return <div>Soundboard not found</div>;
   }
@@ -135,7 +131,6 @@ const ShowPage = ({ user }) => {
     <html>
       <head>
         <title>Soundpages - {title}</title>
-        <link rel="stylesheet" href="/css/show.css" />
         <link
           href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap"
           rel="stylesheet"

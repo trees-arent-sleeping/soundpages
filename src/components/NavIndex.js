@@ -30,7 +30,9 @@ const NavIndex = ({ isLoading, user }) => {
           <div className="links-logged-in">
             <a href="/">Welcome, {user.username}!</a>
             <a href="http://localhost:3000/logout">Logout</a>
-            <a href="/soundboards/create">Create New Soundboard</a>
+            <a href="http://localhost:3000/soundboards/create">
+              Create New Soundboard
+            </a>
           </div>
         </div>
       </nav>
@@ -44,7 +46,9 @@ const NavIndex = ({ isLoading, user }) => {
         <div className="nav-right">
           <div className="links">
             <a href="http://localhost:3000/auth/google">Login with Google</a>
-            <a href="/soundboards/create">Create New Soundboard</a>
+            <a href="http://localhost:3000/soundboards/create">
+              Create New Soundboard
+            </a>
           </div>
         </div>
       </nav>

@@ -2,19 +2,31 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const CreateSoundboard = () => {
+  const [stylesheetLoaded, setStylesheetLoaded] = useState(false);
+  const [sounds, setSounds] = useState([{ title: "", file: null }]);
+
   useEffect(() => {
     const linkElement = document.createElement("link");
     linkElement.rel = "stylesheet";
     linkElement.href = "/styles/edit.css";
     document.head.appendChild(linkElement);
+
+    const handleLoad = () => {
+      setStylesheetLoaded(true);
+    };
+
+    linkElement.addEventListener("load", handleLoad);
+
     return () => {
       document.head.removeChild(linkElement);
+      linkElement.removeEventListener("load", handleLoad);
     };
   }, []);
-  const [sounds, setSounds] = useState([{ title: "", file: null }]);
+
   const addSound = () => {
     setSounds([...sounds, { title: "", file: null }]);
   };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -36,9 +48,15 @@ const CreateSoundboard = () => {
       alert("Error creating soundboard. Please try again.");
     }
   };
+
+  if (!stylesheetLoaded) {
+    return null;
+  }
+
   return (
-    <div className="container">
+    <div className="formerlyHTML">
       <h1>Create a Soundboard</h1>
+      <hr />
       <form onSubmit={handleFormSubmit} encType="multipart/form-data">
         <label htmlFor="title">Title:</label>
         <br />
@@ -54,27 +72,29 @@ const CreateSoundboard = () => {
         <br />
         <br />
         {sounds.map((sound, index) => (
-          <div key={index} className="marg">
-            <input
-              type="text"
-              className="audioTitle"
-              placeholder="TITLE"
-              onChange={(e) => {
-                const newSounds = [...sounds];
-                newSounds[index].title = e.target.value;
-                setSounds(newSounds);
-              }}
-            />
-            ———
-            <input
-              type="file"
-              className="audioFile"
-              onChange={(e) => {
-                const newSounds = [...sounds];
-                newSounds[index].file = e.target.files[0];
-                setSounds(newSounds);
-              }}
-            />
+          <div id="newSoundsContainer" key={index}>
+            <div className="marg">
+              <input
+                type="text"
+                className="audioTitle"
+                placeholder="TITLE"
+                onChange={(e) => {
+                  const newSounds = [...sounds];
+                  newSounds[index].title = e.target.value;
+                  setSounds(newSounds);
+                }}
+              />
+              ——————
+              <input
+                type="file"
+                className="audioFile"
+                onChange={(e) => {
+                  const newSounds = [...sounds];
+                  newSounds[index].file = e.target.files[0];
+                  setSounds(newSounds);
+                }}
+              />
+            </div>
           </div>
         ))}
         <button type="button" onClick={addSound}>

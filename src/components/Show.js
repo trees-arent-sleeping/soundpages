@@ -7,6 +7,7 @@ const ShowPage = ({ user }) => {
   const [soundboard, setSoundboard] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [keys, setKeys] = useState({});
+  const [stylesheetLoaded, setStylesheetLoaded] = useState(false);
 
   useEffect(() => {
     const fetchSoundboard = async () => {
@@ -44,10 +45,23 @@ const ShowPage = ({ user }) => {
     linkElement.rel = "stylesheet";
     linkElement.href = "/styles/show.css";
     document.head.appendChild(linkElement);
+
+    const handleLoad = () => {
+      setStylesheetLoaded(true);
+    };
+
+    linkElement.addEventListener("load", handleLoad);
+
     return () => {
       document.head.removeChild(linkElement);
+      linkElement.removeEventListener("load", handleLoad);
     };
   }, []);
+
+  if (!stylesheetLoaded) {
+    // renders the page only when the stylesheet has been loaded
+    return null;
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -68,10 +82,19 @@ const ShowPage = ({ user }) => {
       ".soundboard-description"
     );
 
-    if (audio.paused) {
-      audio.play();
+    if (audio.paused || audio.ended) {
+      // only play if the audio is paused or has ended. prevent react error
+      audio.play().catch((error) => {
+        if (error.name === "NotAllowedError") {
+          // the play request was interrupted, so pause and reset the audio
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+
       item.style.backgroundColor = "#889bbb";
       item.style.borderColor = "#889bbb";
+
       const completeTitle = document.getElementById(`button-${id}`).dataset
         .fulltitle;
       const img = document.querySelector(".soundboard-image").cloneNode(true);
@@ -128,15 +151,11 @@ const ShowPage = ({ user }) => {
   };
 
   return (
-    <html>
-      <head>
+    <div className="formerlyHTML">
+      <div className="formerlyHead">
         <title>Soundpages - {title}</title>
-        <link
-          href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+      </div>
+      <div className="formerlyBody">
         <nav>
           <div className="nav-top">
             <div className="title-image">
@@ -158,13 +177,15 @@ const ShowPage = ({ user }) => {
                   <a href={`/soundboards/${id}/edit`}>Edit this Soundboard</a>
                 </div>
                 <div className="nav-right">
-                  <a href="/logout">Logout</a>
+                  <a href="http://localhost:3000/logout">Logout</a>
                   <a href="/">Return to Index</a>
                 </div>
               </div>
             ) : (
               <div className="links">
-                <a href="/auth/google">Login with Google</a>
+                <a href="http://localhost:3000/auth/google">
+                  Login with Google
+                </a>
                 <a href="/">Return to Index</a>
               </div>
             )}
@@ -234,8 +255,8 @@ const ShowPage = ({ user }) => {
             });
           `}
         </script>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 };
 

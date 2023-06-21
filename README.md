@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# Soundpages
+![image](https://github.com/trees-arent-sleeping/soundpages/assets/117592107/cf1c0b5e-7383-4d01-8249-12e4661b458e)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Soundpages is a web application that allows users to create soundboards inspired by the design aesthetics of MySpace and websites from the late 90s. Users can create soundboards and upload sounds into them, which can then be accessed and played by other users.
 
-## Available Scripts
+This project is now organized into two separate repositories, one for the frontend and the other for the backend. You can find the frontend repository [here](https://github.com/trees-arent-sleeping/soundpages) and the backend repository [here](https://github.com/trees-arent-sleeping/soundpages-backend).
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Create Soundboards**: Users can create their own unique soundboards with a nostalgic design.
+- **Upload Sounds**: Users can upload their own audio files to add to their soundboards. This allows for a diverse range of sounds to be shared and showcased.
+- **View Soundboards**: Soundboards created by users can be viewed by other users. This allows for sharing and discovering different soundboards.
+- **User Interactions**: Users can interact with soundboards created by others and play the uploaded sounds.
+- **Keybind Functionality**: Users can assign keybinds to specific sounds on their soundboards. This enables quick and easy triggering of sounds by pressing the corresponding key on the keyboard.
+- **Captioned Sounds**: Each sound can be given a title, and when that sound is played, the title is displayed at the bottom of each soundboard. This provides context and information about the played sound.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## User Stories
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- As a user, I want to be able to create my own unique soundboard so that I can customize it with my favorite sounds and share it with others.
+- As a user, I want to be able to view and explore soundboards created by other users so that I can discover new and interesting sounds.
+- As a user, I want to be able to assign keybinds to specific sounds on my soundboard so that I can trigger them quickly and efficiently using keyboard shortcuts.
+- As a user, I want to be able to add captions to each sound on my soundboard so that I can provide context and information about the played sound.
+- As a user, I want to be able to edit and update my soundboard, including changing the titles, adding new sounds, or removing existing ones.
+- As a user, I want to be able to securely authenticate with a user account so that I can easily access and manage my soundboards.
 
-### `npm test`
+## Wireframe
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Soundpages Wireframe 1](https://github.com/trees-arent-sleeping/sound_pages/assets/117592107/18728f84-b1ad-4cb5-aa8c-d927a797f13b)
 
-### `npm run build`
+![Soundpages Wireframe 2](https://github.com/trees-arent-sleeping/sound_pages/assets/117592107/1cf465d5-57d8-45c0-b9d2-c05843f2cc34)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Front-end**: React.js for building the user interface, axios for sending HTTP requests, and react-router-dom for routing.
+- **Back-end**: Node.js with Express to handle user authentication, soundboard creation, and sound uploading.
+- **Database**: MongoDB Atlas to store user information, soundboard data, and sound files.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+### Backend:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the repository: `git clone https://github.com/trees-arent-sleeping/soundpages-backend`
+2. Navigate to the project directory: `cd soundpages-backend`
+3. Install the dependencies: `npm install`
+4. Set up the required environment variables:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   - Create a `.env` file in the root directory of the project.
+   - Add the following environment variables to the `.env` file:
+     ```
+     MONGO_URI=<your MongoDB Atlas connection string>
+     GOOGLE_CLIENT_ID=<your Google client ID>
+     GOOGLE_CLIENT_SECRET=<your Google client secret>
+     ```
+   - Replace `<your MongoDB Atlas connection string>` with your actual MongoDB Atlas connection string.
+   - Obtain your Google client ID and client secret by creating a new project on the Google Developers Console and enabling the Google OAuth API. Replace <your Google client ID> and <your Google client secret> with the corresponding values.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Start the development server: `npm start`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Frontend:
 
-## Learn More
+1. Clone the repository: `git clone https://github.com/trees-arent-sleeping/soundpages`
+2. Navigate to the project directory: `cd soundpages`
+3. Install the dependencies: `npm install`
+4. Install the additional dependencies:
+   - React: `npm install react react-dom`
+   - React Router: `npm install react-router-dom`
+   - Axios: `npm install axios`
+5. Start the development server: `npm start`
+6. Open your web browser and visit `http://localhost:3001` to access Soundpages locally.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Relationships
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Soundpages ERD](https://github.com/trees-arent-sleeping/sound_pages/assets/117592107/ba676616-f669-4380-b3df-3b41eae25654)
 
-### Code Splitting
+- **User and Soundboard**:
+  - A user can have multiple soundboards.
+  - Each soundboard belongs to a single user.
+  - A one-to-many relationship.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Soundboard and Sound**:
+  - A soundboard can have multiple sounds.
+  - Each sound belongs to a single soundboard.
+  - A one-to-many relationship.
 
-### Analyzing the Bundle Size
+## Future Features/Unsolved Problems
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Customization: In the future, users will be able to customize the appearance of their soundboards, including colors, textures, and other visual elements.
